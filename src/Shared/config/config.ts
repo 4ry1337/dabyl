@@ -1,5 +1,5 @@
 /** API entrypoint */
-export const API_URL = 'https://caller1.herokuapp.com';
+export const API_URL = 'https://callerdabyl.herokuapp.com';
 
 /** Режим запуска программы */
 export const NODE_ENV = process.env.NODE_ENV;
