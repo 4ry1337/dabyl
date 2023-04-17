@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {NavLink} from "react-router-dom";
 import { Listbox, Disclosure, Transition } from '@headlessui/react'
-import {HiBars3, HiOutlineXCircle, HiXMark} from "react-icons/hi2";
+import {HiBars3, HiXMark} from "react-icons/hi2";
 import {logout, selectCurrentUser} from "Entities/Auth";
 import {languages, navigation, useAppDispatch, useAppSelector} from "Shared";
 
@@ -82,13 +82,10 @@ export const Header = () => {
                             </Listbox>
                             {user &&
                                 <div className={'flex space-x-2 justify-center items-center flex-row'}>
-                                    <h1 className={'text-white'}>
-                                        {user.firstName}
-                                    </h1>
                                     <button
                                         onClick={()=>{dispatch(logout())}}
                                     >
-                                        <HiOutlineXCircle className={'w-6 h-6'}/>
+                                        Выйти
                                     </button>
                                 </div>
                             }

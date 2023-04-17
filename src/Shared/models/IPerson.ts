@@ -16,9 +16,12 @@ export interface IPerson {
 }
 
 export interface IPersonMinified {
-        ФИО: string,
-        статус: string,
-        телефон: string,
-        ранг: string,
-        дата: string
+        "ФИО": string,
+        "телефон": string,
+        "статус смс"?: string,
+        "дата отправки смс"?: string,
+        "дата доставки смс"?: string,
+        "статус звонка"?: string,
+        "дата отправки звонка"?: string,
+        "дата доставки звонка"?: string,
 }

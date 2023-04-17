@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 import { ReportResponse } from 'Entities/History';
 import React, {useEffect, useState } from 'react';
 import { HiDownload } from 'react-icons/hi';
-import { getFullName, IPersonMinified, smsStatusCode } from 'Shared';
+import {getFullName, IPersonMinified, notificationMethod, smsStatusCode} from 'Shared';
 import * as XLSX from 'xlsx';
 
 type GenerateExcel = {
@@ -30,14 +30,39 @@ export const GenerateExcelButtons = ({data}: GenerateExcel) => {
 
 const generateExcel = (data: ReportResponse) : IPersonMinified[] => {
     let result: IPersonMinified[] = []
-    data.people.forEach(person=>{
-        result.push({
-            ФИО: getFullName(person.firstName, person.lastName, person.middleName),
-            статус: smsStatusCode(person.status).message,
-            телефон: person.telephone,
-            ранг: person.rank,
-            дата: person.date
+    if(data.history.notificationMethod.toString() === notificationMethod.both.toString()){
+        data.people.forEach(person=>{
+            result.push({
+                "ФИО": getFullName(person.firstName, person.lastName, person.middleName),
+                "телефон": person.telephone,
+                "статус смс": smsStatusCode(person.smsStatusCode).message,
+                "дата отправки смс": '',
+                "дата доставки смс": '',
+                "статус звонка": person.callStatusCode.toString(),
+                "дата отправки звонка": '',
+                "дата доставки звонка": '',
+            })
         })
-    })
+    } else if (data.history.notificationMethod.toString() === notificationMethod.call.toString()){
+        data.people.forEach(person=>{
+            result.push({
+                "ФИО": getFullName(person.firstName, person.lastName, person.middleName),
+                "телефон": person.telephone,
+                "статус звонка": person.callStatusCode.toString(),
+                "дата отправки звонка": '',
+                "дата доставки звонка": '',
+            })
+        })
+    } else if (data.history.notificationMethod.toString() === notificationMethod.sms.toString()){
+        data.people.forEach(person=>{
+            result.push({
+                "ФИО": getFullName(person.firstName, person.lastName, person.middleName),
+                "телефон": person.telephone,
+                "статус смс": smsStatusCode(person.smsStatusCode).message,
+                "дата отправки смс": '',
+                "дата доставки смс": '',
+            })
+        })
+    }
     return result
 }

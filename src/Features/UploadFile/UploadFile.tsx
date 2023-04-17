@@ -7,10 +7,14 @@ type UploadFileProps = {
 }
 
 export const UploadFile = (props: UploadFileProps) => {
+
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.files) {
-            props.setFile(event.target.files[0])
+        const fileObj = event.target.files && event.target.files[0]
+        if (!fileObj) {
+            return;
         }
+        props.setFile(fileObj)
+        event.target.value = '';
     };
 
     return (

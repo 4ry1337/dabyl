@@ -119,14 +119,6 @@ export const Command = () => {
                     <div className={'col-span-2'}>
                         <div className={'grid grid-rows-3 gap-4'}>
                             <div className={'flex flex-row items-center space-x-4 py-4 px-2.5'}>
-                                {/*<div className={'flex flex-row space-x-2'}>
-                                    <h1>SMS</h1>
-                                    <MdCheck className={classNames('w-6 h-6', sms ? 'text-green' : 'text-transparent')}/>
-                                </div>
-                                <div className={'flex flex-row space-x-2'}>
-                                    <h1>Звонок</h1>
-                                    <MdCheck className={classNames('w-6 h-6', call ? 'text-green' : 'text-transparent')}/>
-                                </div>*/}
                                 <div className={'flex flex-row justify-end space-x-4'}>
                                     <div className={'flex flex-row space-x-2 items-center'}>
                                         <span className={'text-sm'}>SMS</span>
@@ -165,8 +157,8 @@ export const Command = () => {
                     </div>
                     <div className={'grid grid-rows-3 gap-4'}>
                         <div className={classNames(isAlertVisible ? 'grid place-items-center' : 'hidden', isSuccess && 'ring-2 ring-success', isError && 'ring-2 ring-danger','h-full w-full rounded-xl')}>
-                            {isSuccess && <h1 className={'text-success'}>Success</h1>}
-                            {isError && <h1 className={'text-danger'}>Error</h1>}
+                            {isSuccess && <h1 className={'text-success'}>Успех</h1>}
+                            {isError && <h1 className={'text-danger'}>Ошибка</h1>}
                         </div>
                         <button className={'row-start-2 row-span-2 bg-green hover:bg-darkreen h-full w-full rounded-xl disabled:bg-gray-700'} disabled={!isValid} onClick={handleSubmit}>
                             <span className={'text-white font-medium text-white uppercase'}>Оповестить</span>

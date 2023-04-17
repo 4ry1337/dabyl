@@ -1,14 +1,13 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {
-    HiCheck,
     HiOutlinePrinter,
     HiOutlineVolumeUp,
     HiOutlineXCircle,
-    HiRefresh, HiSelector,
+    HiRefresh,
 } from "react-icons/hi";
-import {RadioGroup, Combobox, Transition} from '@headlessui/react'
+import {RadioGroup} from '@headlessui/react'
 import {historyAPI} from "Entities/History";
-import {classNames, getFullName, Loading, militaryRanks, smsStatusCode} from "../../Shared";
+import {classNames, getFullName, Loading, notificationMethod, smsStatusCode} from "../../Shared";
 import {format} from "date-fns";
 import {NavLink} from "react-router-dom";
 import { GenerateExcelButtons } from './GenerateExcelButtons';
@@ -29,13 +28,14 @@ export const Report = ({id}: ReportProps) => {
 
     const [status, setStatus] = useState(0);
 
-    const [selectedRanks, setSelectedRanks] = useState<string[]>([])
     const [query, setQuery] = useState('')
+
+    /*const [selectedRanks, setSelectedRanks] = useState<string[]>([])
     const filteredRanks = query === '' ? militaryRanks : militaryRanks.filter((rank) => {return rank.toLowerCase().includes(query.toLowerCase())})
 
     function handleSelect(value: string[]) {
         setSelectedRanks(value);
-    }
+    }*/
     function clickHandler(){
         console.log(query)
     }
@@ -72,7 +72,7 @@ export const Report = ({id}: ReportProps) => {
                     <div className={'container py-2.5 mx-auto grow flex flex-col space-y-4'}>
                         <div className={'grid grid-cols-5 gap-4'}>
                             <div className={'col-span-4 grid grid-rows-3'}>
-                                <div className={'flex flex-row justify-between'}>
+                                <div className={'flex flex-row justify-between font-bold'}>
                                     <h1>
                                         Комманда: {result.data.command.name}
                                     </h1>
@@ -80,16 +80,31 @@ export const Report = ({id}: ReportProps) => {
                                         СПИСОК: {result.data.history.historyNumber}
                                     </h1>
                                 </div>
-                                <div className={classNames('grid-cols-3 grid text-sm items-center px-4')}>
-                                    <h1>Всего в списке:</h1>
+                                <div className={classNames('grid-cols-4 grid text-sm items-center px-4')}>
+                                    <h1 className={'col-start-2'}>Всего в списке:</h1>
                                     <h1>Доставлено:</h1>
                                     <h1>Не доставлено:</h1>
                                 </div>
-                                <div className={'grid grid-cols-3 items-center px-4 bg-gray-100'}>
-                                    <div>{result.data.history.statisctics.totalSMS} </div>
-                                    <div>{result.data.history.statisctics.successfulSMS} ({(result.data.history.statisctics.successfulSMS / result.data.history.statisctics.totalSMS * 100).toFixed(1)}%)</div>
-                                    <div>{result.data.history.statisctics.unSuccessfu11SMS} ({(result.data.history.statisctics.successfulSMS / result.data.history.statisctics.totalSMS * 100).toFixed(1)}%)</div>
-                                </div>
+                                {(result.data.history.notificationMethod.toString() === notificationMethod.both.toString()
+                                        || result.data.history.notificationMethod.toString() === notificationMethod.call.toString())
+                                    &&
+                                    <div className={'grid grid-cols-4 items-center px-4 bg-gray-100'}>
+                                        <div>Звонок</div>
+                                        <div>{result.data.history.statisctics.totalCalls} </div>
+                                        <div>{result.data.history.statisctics.successfulCalls} ({(result.data.history.statisctics.successfulCalls / result.data.history.statisctics.totalCalls * 100).toFixed(1)}%)</div>
+                                        <div>{result.data.history.statisctics.unSuccessfuICalls} ({(result.data.history.statisctics.successfulCalls / result.data.history.statisctics.totalCalls * 100).toFixed(1)}%)</div>
+                                    </div>
+                                }
+                                {(result.data.history.notificationMethod.toString() === notificationMethod.both.toString()
+                                        || result.data.history.notificationMethod.toString() === notificationMethod.sms.toString())
+                                    &&
+                                    <div className={'grid grid-cols-4 items-center px-4 bg-gray-100'}>
+                                        <div>SMS</div>
+                                        <div>{result.data.history.statisctics.totalSMS} </div>
+                                        <div>{result.data.history.statisctics.successfulSMS} ({(result.data.history.statisctics.successfulSMS / result.data.history.statisctics.totalSMS * 100).toFixed(1)}%)</div>
+                                        <div>{result.data.history.statisctics.unSuccessfu11SMS} ({(result.data.history.statisctics.successfulSMS / result.data.history.statisctics.totalSMS * 100).toFixed(1)}%)</div>
+                                    </div>
+                                }
                             </div>
                             <RadioGroup as={'div'} value={status} onChange={setStatus} className={'grid grid-rows-3'}>
                                 <RadioGroup.Option value={0} className={'space-x-2'}>
@@ -104,7 +119,7 @@ export const Report = ({id}: ReportProps) => {
                             </RadioGroup>
                         </div>
                         <div className={'grid grid-cols-5 gap-4'}>
-                            <div className={'col-span-3'}>
+                            <div className={'col-span-4'}>
                                 <input
                                     id="login"
                                     name="login"
@@ -113,7 +128,7 @@ export const Report = ({id}: ReportProps) => {
                                     className={'block w-full rounded-md text-gray-900'}
                                 />
                             </div>
-                            <Combobox
+                            {/*<Combobox
                                 as={'div'}
                                 className={'relative'}
                                 value={selectedRanks}
@@ -157,7 +172,7 @@ export const Report = ({id}: ReportProps) => {
                                         ))}
                                     </Combobox.Options>
                                 </Transition>
-                            </Combobox>
+                            </Combobox>*/}
                             <div className={''}>
                                 <button
                                     className={'bg-green hover:bg-darkGreen mx-auto w-full text-white py-2.5 px-10 rounded-lg'}
@@ -172,30 +187,84 @@ export const Report = ({id}: ReportProps) => {
                             :
                             result.data.people.length !== 0 ?
                             <div className={'grow flex flex-col py-5 space-y-2'} ref={printRef}>
-                                <div className={classNames('grid gap-4 place-items-center grid-cols-5')}>
+                                <div className={classNames(
+                                    'grid gap-4 place-items-center',
+                                    (result.data.history.notificationMethod.toString() === notificationMethod.both.toString()) ? 'grid-cols-8' : 'grid-cols-5',
+                                )}>
                                     <h1>ФИО</h1>
-                                    <h1>Звание</h1>
                                     <h1>Телефон</h1>
-                                    <h1>Статус</h1>
-                                    <h1>Дата</h1>
+                                    {(result.data.history.notificationMethod.toString() === notificationMethod.both.toString()
+                                            || result.data.history.notificationMethod.toString() === notificationMethod.call.toString())
+                                        &&
+                                        <div className={'w-full col-span-3 place-items-center grid grid-cols-3 grid-rows-2'}>
+                                            <h1 className={'col-span-3'}>ЗВОНОК</h1>
+                                            <h1 className={''}>Статус</h1>
+                                            <h1 className={''}>Время Отправки</h1>
+                                            <h1 className={''}>Время Доставки</h1>
+                                        </div>
+                                    }
+                                    {(result.data.history.notificationMethod.toString() === notificationMethod.both.toString()
+                                            || result.data.history.notificationMethod.toString() === notificationMethod.sms.toString())
+                                        &&
+                                        <div className={'w-full col-span-3 place-items-center grid grid-cols-3 grid-rows-2'}>
+                                            <h1 className={'col-span-3'}>СМС</h1>
+                                            <h1 className={''}>Статус</h1>
+                                            <h1 className={''}>Время Отправки</h1>
+                                            <h1 className={''}>Время Доставки</h1>
+                                        </div>
+                                    }
                                 </div>
                                 <hr className={'border-gray-900'}/>
                                 {result.data.people.map((person) => {
                                         return (
                                             <div key={person.id}>
-                                                <div className={classNames('grid gap-4 place-items-center grid-cols-5')}>
+                                                <div
+                                                    className={
+                                                    classNames(
+                                                        'grid gap-4 place-items-center py-2.5 text-center',
+                                                        (result.data.history.notificationMethod.toString() === notificationMethod.both.toString()) ? 'grid-cols-8' : 'grid-cols-5',
+                                                    )
+                                                }>
                                                     <div>
                                                         {getFullName(person.firstName, person.lastName, person.middleName)}
                                                     </div>
-                                                    <div/>
                                                     <div>
                                                         {person.telephone}
                                                     </div>
-                                                    <div
-                                                        className={`text-${smsStatusCode(person.status).color}`}>
-                                                        {smsStatusCode(person.status).message}
-                                                    </div>
-                                                    <div/>
+                                                    {(result.data.history.notificationMethod.toString() === notificationMethod.both.toString()
+                                                            || result.data.history.notificationMethod.toString() === notificationMethod.call.toString())
+                                                        &&
+                                                        <>
+                                                            <div>
+                                                                <h1 className={`text-${smsStatusCode(person.callStatusCode).color}`}>
+                                                                    {person.callStatusCode.toString()}
+                                                                </h1>
+                                                            </div>
+                                                            <div>
+                                                                <h1>send date</h1>
+                                                            </div>
+                                                            <div>
+                                                                <h1>delivered date</h1>
+                                                            </div>
+                                                        </>
+                                                    }
+                                                    {(result.data.history.notificationMethod.toString() === notificationMethod.both.toString()
+                                                            || result.data.history.notificationMethod.toString() === notificationMethod.sms.toString())
+                                                        &&
+                                                        <>
+                                                            <div>
+                                                                <h1 className={`text-${smsStatusCode(person.smsStatusCode).color}`}>
+                                                                    {smsStatusCode(person.smsStatusCode).message}
+                                                                </h1>
+                                                            </div>
+                                                            <div>
+                                                                <h1>send date</h1>
+                                                            </div>
+                                                            <div>
+                                                                <h1>delivered date</h1>
+                                                            </div>
+                                                        </>
+                                                    }
                                                 </div>
                                                 <hr className={'bg-gray-600'}/>
                                             </div>
