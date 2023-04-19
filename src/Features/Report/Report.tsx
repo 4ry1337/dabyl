@@ -40,7 +40,7 @@ export const Report = ({id}: ReportProps) => {
         console.log(query)
     }
     return (
-        <div className={'grow flex flex-col'}>
+        <section className={'grow flex flex-col'}>
             {result.isLoading && <Loading/>}
             {result.isSuccess && result.data &&
                 <>
@@ -121,8 +121,8 @@ export const Report = ({id}: ReportProps) => {
                         <div className={'grid grid-cols-5 gap-4'}>
                             <div className={'col-span-4'}>
                                 <input
-                                    id="login"
-                                    name="login"
+                                    id="text"
+                                    name="text"
                                     type="text"
                                     placeholder="Введите фамилию или номер телефона"
                                     className={'block w-full rounded-md text-gray-900'}
@@ -282,6 +282,6 @@ export const Report = ({id}: ReportProps) => {
                     </div>
                 </>
             }
-        </div>
+        </section>
     );
 };

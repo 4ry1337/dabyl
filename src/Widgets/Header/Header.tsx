@@ -13,7 +13,7 @@ export const Header = () => {
     return (
         <Disclosure as={'nav'} className={'bg-primary text-white'}>
             {({open})=>
-                <div className={'container mx-auto py-5 px-2 sm:px-6 lg:px-8'}>
+                <header className={'container mx-auto py-5 px-2 sm:px-6 lg:px-8'}>
                     <div className={'relative flex items-center justify-between'}>
                         <div className="flex items-center md:hidden">
                             <Disclosure.Button
@@ -107,7 +107,7 @@ export const Header = () => {
                             })}
                         </div>
                     </Disclosure.Panel>
-                </div>
+                </header>
             }
         </Disclosure>
     )

@@ -3,10 +3,10 @@ import {AuthForm} from "Features";
 
 export const AuthPage = () => {
     return (
-        <div className={'container mx-auto grow mt-2.5 grid lg:grid-cols-3 md:grid-cols-5 items-center grow'}>
+        <section className={'container mx-auto grow mt-2.5 grid lg:grid-cols-3 md:grid-cols-5 items-center grow'}>
             <div className={'md:col-start-2 md:col-span-3 lg:col-span-1 lg:col-start-2 py-2.5 px-2.5'}>
                 <AuthForm/>
             </div>
-        </div>
+        </section>
     );
 };

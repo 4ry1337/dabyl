@@ -1,7 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import {commandsAPI, CommandsList, UploadFile, executeCommandRequest} from "Entities/Command/";
-import {classNames, Heading, ICommand, Loading, notificationMethod, Toggle} from "Shared";
-import {HiDotsHorizontal, HiOutlineEye, HiOutlineTrash, HiOutlineVolumeUp} from "react-icons/hi";
+import {
+    classNames, downloadExampleExcel,
+    Heading,
+    ICommand,
+    Loading,
+    notificationMethod,
+    Toggle
+} from "Shared";
+import {
+    HiDotsHorizontal,
+    HiOutlineDownload,
+    HiOutlineEye,
+    HiOutlineTrash,
+    HiOutlineVolumeUp
+} from "react-icons/hi";
 
 export const Command = () => {
     const {data: commands, isFetching, isSuccess, isError} = commandsAPI.useFetchCommandsQuery()
@@ -78,7 +91,6 @@ export const Command = () => {
             setValid(false)
         }
     }, [commandError, notificaionError, fileError])
-
     return (
         <>
             <div className={'grow grid grid-cols-2 gap-4'}>
@@ -98,6 +110,15 @@ export const Command = () => {
                         <Heading className={'uppercase text-center'} lineHeight={'2px'} color={'bg-gray-500'}>СПИСКИ ДЛЯ РАССЫЛКИ</Heading>
                     </div>
                     <UploadFile file={file} setFile={setFile}/>
+                    <button
+                        onClick={downloadExampleExcel}
+                        className="border-2 border-green text-green rounded-lg flex flex-row justify-center items-center space-x-2 py-2 hover:bg-gray-100"
+                    >
+                        <HiOutlineDownload className="h-6 w-6"/>
+                        <h1 className="font-medium">
+                            Скачать Пример
+                        </h1>
+                    </button>
                 </div>
             </div>
             <div>

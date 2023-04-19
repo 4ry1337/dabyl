@@ -3,8 +3,8 @@ import {History} from "Features";
 
 export const HistoryPage = () => {
     return (
-        <div className={'container mx-auto grow py-2.5 flex flex-col'}>
+        <section className={'container mx-auto grow py-2.5 flex flex-col'}>
             <History/>
-        </div>
+        </section>
     );
 };
