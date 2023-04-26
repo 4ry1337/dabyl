@@ -59,7 +59,7 @@ export const Command = () => {
             setCommand(null)
             setTimeout(() => {
                 setIsAlertVisible(false);
-            }, 500);
+            }, 1000);
         }
     }
     useEffect(()=>{
@@ -177,9 +177,9 @@ export const Command = () => {
                         </div>
                     </div>
                     <div className={'grid grid-rows-3 gap-4'}>
-                        <div className={classNames(isAlertVisible ? 'grid place-items-center' : 'hidden', isSuccess && 'ring-2 ring-success', isError && 'ring-2 ring-danger','h-full w-full rounded-xl')}>
-                            {isSuccess && <h1 className={'text-success'}>Успех</h1>}
-                            {isError && <h1 className={'text-danger'}>Ошибка</h1>}
+                        <div className={classNames(isAlertVisible ? 'grid place-items-center text-white' : 'hidden', isSuccess && 'bg-success', isError && 'bg-danger','h-full w-full rounded-xl')}>
+                            {isSuccess && <h1 className={''}>Успех</h1>}
+                            {isError && <h1 className={''}>Ошибка</h1>}
                         </div>
                         <button className={'row-start-2 row-span-2 bg-green hover:bg-darkreen h-full w-full rounded-xl disabled:bg-gray-700'} disabled={!isValid} onClick={handleSubmit}>
                             <span className={'text-white font-medium text-white uppercase'}>Оповестить</span>

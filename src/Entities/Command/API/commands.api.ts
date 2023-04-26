@@ -5,7 +5,7 @@ import {executeCommandRequest} from "./commands.type";
 export const commandsAPI = createApi({
     reducerPath: 'commandsAPI',
     baseQuery: fetchBaseQuery({
-        baseUrl: `${API_URL}/commands`,
+        baseUrl: `${API_URL}`,
         prepareHeaders: (headers) => {
             const token = localStorage.getItem('uid')
             if (token) {
@@ -19,7 +19,7 @@ export const commandsAPI = createApi({
         {
             fetchCommands: build.query<ICommand[], void>({
                 query: ()=>({
-                    url: '',
+                    url: '/commands',
                 }),
                 transformResponse: (data: { commands: ICommand[] }) => {
                     return data.commands
@@ -28,7 +28,7 @@ export const commandsAPI = createApi({
             }),
             createCommand: build.mutation<ICommand, ICommand>({
                 query: (Command) => ({
-                    url: '',
+                    url: '/commands',
                     method: 'POST',
                     body: Command
                 }),
@@ -36,7 +36,7 @@ export const commandsAPI = createApi({
             }),
             updateCommand: build.mutation<ICommand, ICommand>({
                 query: (command) => ({
-                    url: `/${command.id}`,
+                    url: `/commands/${command.id}`,
                     method: 'PATCH',
                     body: command
                 }),
@@ -44,20 +44,25 @@ export const commandsAPI = createApi({
             }),
             deleteCommand: build.mutation<ICommand, ICommand>({
                 query: (command) => ({
-                    url: `/${command.id}`,
+                    url: `/commands/${command.id}`,
                     method: 'DELETE',
                 }),
                 invalidatesTags: ['Command']
             }),
             executeCommand: build.mutation<ICommand, executeCommandRequest>({
                 query: (request)=>({
-                    url: `/${request.id}`,
+                    url: `/commands/${request.id}`,
                     method: 'POST',
                     body: request.body,
                     params: request.params,
                 }),
                 invalidatesTags: ['Command']
-            })
+            }),
+            getExampleFile: build.query<ICommand[], void>({
+                query: ()=>({
+                    url: '/examplefile',
+                }),
+            }),
         }
     )
 })
