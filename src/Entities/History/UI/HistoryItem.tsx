@@ -5,12 +5,12 @@ import {format} from "date-fns";
 import {HiOutlineEye, HiOutlineVolumeUp} from "react-icons/hi";
 import {classNames, IHistory, notificationMethod} from "Shared";
 
-type ReportProp = {
+type HistoryProp = {
     className?: string
     item: IHistory
 }
 
-export const HistoryItem: FC<ReportProp> = ({item}) => {
+export const HistoryItem: FC<HistoryProp> = ({item}) => {
     return (
         <Disclosure>
             <Disclosure.Button>

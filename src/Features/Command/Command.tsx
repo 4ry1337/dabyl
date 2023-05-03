@@ -178,8 +178,8 @@ export const Command = () => {
                     </div>
                     <div className={'grid grid-rows-3 gap-4'}>
                         <div className={classNames(isAlertVisible ? 'grid place-items-center text-white' : 'hidden', isSuccess && 'bg-success', isError && 'bg-danger','h-full w-full rounded-xl')}>
-                            {isSuccess && <h1 className={''}>Успех</h1>}
-                            {isError && <h1 className={''}>Ошибка</h1>}
+                            {isSuccess && <h1 className={''}>Рассылка была проведена</h1>}
+                            {isError && <h1 className={''}>Рассылка НЕ была проведена</h1>}
                         </div>
                         <button className={'row-start-2 row-span-2 bg-green hover:bg-darkreen h-full w-full rounded-xl disabled:bg-gray-700'} disabled={!isValid} onClick={handleSubmit}>
                             <span className={'text-white font-medium text-white uppercase'}>Оповестить</span>
