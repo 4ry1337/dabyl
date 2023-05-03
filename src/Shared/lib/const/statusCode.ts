@@ -3,7 +3,7 @@ export interface SMSStatus {
     color: string,
 }
 
-export const smsStatusCode = (code: number): SMSStatus => {
+export const StatusCode = (code: number): SMSStatus => {
     switch (code) {
         case -3:
             return {color: 'warning', message: 'Сообщение не найдено'}

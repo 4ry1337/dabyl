@@ -1,18 +1,28 @@
 export interface IPerson {
         id: string,
         historyId: string,
-        smsId: string
-        status: number,
-        smsStatusCode: number,
-        callStatusCode: number,
         firstName: string,
         lastName: string,
         middleName: string,
         email: string,
         telephone: string,
-        rank: string,
         isactive: boolean,
-        date: string
+        serverSmsStatusCode: number,
+        smsId: number,
+        smsStatus: number,
+        smsSendingTime: string,
+        smsDeliveryTime: {
+                Time: string,
+                Valid: boolean
+        }
+        serverCallStatusCode: number,
+        callId: number,
+        callStatus: number,
+        callSendingTime: string,
+        callDeliveryTime: {
+                Time: string,
+                Valid: boolean
+        }
 }
 
 export interface IPersonMinified {

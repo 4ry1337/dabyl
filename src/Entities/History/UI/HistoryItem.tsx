@@ -43,17 +43,17 @@ export const HistoryItem: FC<ReportProp> = ({item}) => {
                             {(item.notificationMethod.toString() === notificationMethod.both.toString() || item.notificationMethod.toString() === notificationMethod.call.toString()) &&
                                 <div className={'grid grid-cols-4 items-center px-4 bg-gray-100'}>
                                     <div>Звонок</div>
-                                    <div>{item.statisctics.totalCalls} </div>
-                                    <div>{item.statisctics.successfulCalls} ({(item.statisctics.successfulCalls / item.statisctics.totalCalls * 100).toFixed(1)}%)</div>
-                                    <div>{item.statisctics.unSuccessfuICalls} ({(item.statisctics.successfulCalls / item.statisctics.totalCalls * 100).toFixed(1)}%)</div>
+                                    <div>{item.statisctics.totalCalls}</div>
+                                    <div>{item.statisctics.successfulCalls} ({((item.statisctics.successfulCalls / item.statisctics.totalCalls) * 100).toFixed(1)}%)</div>
+                                    <div>{item.statisctics.unSuccessfulCalls} ({((item.statisctics.unSuccessfulCalls / item.statisctics.totalCalls) * 100).toFixed(1)}%)</div>
                                 </div>
                             }
                             {(item.notificationMethod.toString() === notificationMethod.both.toString() || item.notificationMethod.toString() === notificationMethod.sms.toString()) &&
                                 <div className={'grid grid-cols-4 items-center px-4 bg-gray-100'}>
                                     <div>SMS</div>
-                                    <div>{item.statisctics.totalSMS} </div>
-                                    <div>{item.statisctics.successfulSMS} ({(item.statisctics.successfulSMS / item.statisctics.totalSMS * 100).toFixed(1)}%)</div>
-                                    <div>{item.statisctics.unSuccessfu11SMS} ({(item.statisctics.successfulSMS / item.statisctics.totalSMS * 100).toFixed(1)}%)</div>
+                                    <div>{item.statisctics.totalSMS}</div>
+                                    <div>{item.statisctics.successfulSMS} ({((item.statisctics.successfulSMS / item.statisctics.totalSMS) * 100).toFixed(1)}%)</div>
+                                    <div>{item.statisctics.unSuccessfullSMS} ({((item.statisctics.unSuccessfullSMS / item.statisctics.totalSMS) * 100).toFixed(1)}%)</div>
                                 </div>
                             }
                         </div>

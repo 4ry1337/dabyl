@@ -12,5 +12,5 @@ export const downloadExampleExcel = () => {
         ])
 
     XLSX.utils.book_append_sheet(wb, ws, 'Лист 1')
-    XLSX.writeFile(wb, `Пример отчета.xlsx`)
+    XLSX.writeFile(wb, `Шаблон Рассылки.xlsx`)
 }

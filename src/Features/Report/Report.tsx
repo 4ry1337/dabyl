@@ -7,7 +7,7 @@ import {
 } from "react-icons/hi";
 import {RadioGroup} from '@headlessui/react'
 import {historyAPI} from "Entities/History";
-import {classNames, getFullName, Loading, notificationMethod, smsStatusCode} from "../../Shared";
+import {classNames, getFullName, Loading, notificationMethod, StatusCode} from "../../Shared";
 import {format} from "date-fns";
 import {NavLink} from "react-router-dom";
 import { GenerateExcelButtons } from './GenerateExcelButtons';
@@ -91,8 +91,8 @@ export const Report = ({id}: ReportProps) => {
                                     <div className={'grid grid-cols-4 items-center px-4 bg-gray-100'}>
                                         <div>Звонок</div>
                                         <div>{result.data.history.statisctics.totalCalls} </div>
-                                        <div>{result.data.history.statisctics.successfulCalls} ({(result.data.history.statisctics.successfulCalls / result.data.history.statisctics.totalCalls * 100).toFixed(1)}%)</div>
-                                        <div>{result.data.history.statisctics.unSuccessfuICalls} ({(result.data.history.statisctics.successfulCalls / result.data.history.statisctics.totalCalls * 100).toFixed(1)}%)</div>
+                                        <div>{result.data.history.statisctics.successfulCalls} ({((result.data.history.statisctics.successfulCalls / result.data.history.statisctics.totalCalls) * 100).toFixed(1)}%)</div>
+                                        <div>{result.data.history.statisctics.unSuccessfulCalls} ({((result.data.history.statisctics.unSuccessfulCalls / result.data.history.statisctics.totalCalls) * 100).toFixed(1)}%)</div>
                                     </div>
                                 }
                                 {(result.data.history.notificationMethod.toString() === notificationMethod.both.toString()
@@ -101,8 +101,8 @@ export const Report = ({id}: ReportProps) => {
                                     <div className={'grid grid-cols-4 items-center px-4 bg-gray-100'}>
                                         <div>SMS</div>
                                         <div>{result.data.history.statisctics.totalSMS} </div>
-                                        <div>{result.data.history.statisctics.successfulSMS} ({(result.data.history.statisctics.successfulSMS / result.data.history.statisctics.totalSMS * 100).toFixed(1)}%)</div>
-                                        <div>{result.data.history.statisctics.unSuccessfu11SMS} ({(result.data.history.statisctics.successfulSMS / result.data.history.statisctics.totalSMS * 100).toFixed(1)}%)</div>
+                                        <div>{result.data.history.statisctics.successfulSMS} ({((result.data.history.statisctics.successfulSMS / result.data.history.statisctics.totalSMS) * 100).toFixed(1)}%)</div>
+                                        <div>{result.data.history.statisctics.unSuccessfullSMS} ({((result.data.history.statisctics.unSuccessfullSMS / result.data.history.statisctics.totalSMS) * 100).toFixed(1)}%)</div>
                                     </div>
                                 }
                             </div>
@@ -236,15 +236,19 @@ export const Report = ({id}: ReportProps) => {
                                                         &&
                                                         <>
                                                             <div>
-                                                                <h1 className={`text-${smsStatusCode(person.callStatusCode).color}`}>
-                                                                    {person.callStatusCode.toString()}
+                                                                <h1 className={`text-${StatusCode(person.callStatus).color}`}>
+                                                                    {StatusCode(person.callStatus).message}
                                                                 </h1>
                                                             </div>
                                                             <div>
-                                                                <h1>send date</h1>
+                                                                <h1>
+                                                                    {format(new Date(person.callSendingTime), 'dd.MM.yyyy / kk:m')}
+                                                                </h1>
                                                             </div>
                                                             <div>
-                                                                <h1>delivered date</h1>
+                                                                <h1>
+                                                                    {person.callDeliveryTime.Valid ? format(new Date(person.callDeliveryTime.Time), 'dd.MM.yyyy / kk:m') : '--.--.-- / --:--'}
+                                                                </h1>
                                                             </div>
                                                         </>
                                                     }
@@ -253,15 +257,17 @@ export const Report = ({id}: ReportProps) => {
                                                         &&
                                                         <>
                                                             <div>
-                                                                <h1 className={`text-${smsStatusCode(person.smsStatusCode).color}`}>
-                                                                    {smsStatusCode(person.smsStatusCode).message}
+                                                                <h1 className={`text-${StatusCode(person.callStatus).color}`}>
+                                                                    {StatusCode(person.callStatus).message}
                                                                 </h1>
                                                             </div>
                                                             <div>
-                                                                <h1>send date</h1>
+                                                                <h1>
+                                                                    {format(new Date(person.callSendingTime), 'dd.MM.yyyy / kk:mm')}
+                                                                </h1>
                                                             </div>
                                                             <div>
-                                                                <h1>delivered date</h1>
+                                                                <h1>{person.smsDeliveryTime.Valid ? format(new Date(person.callDeliveryTime.Time), 'dd.MM.yyyy / kk:mm') : '--.--.-- / --:--'}</h1>
                                                             </div>
                                                         </>
                                                     }

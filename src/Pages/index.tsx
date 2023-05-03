@@ -5,10 +5,10 @@ import {AuthPage} from "./AuthPage/Auth.page";
 import {MailingPage} from "./MailingPage/Mailing.page";
 import {HistoryPage} from "./HistoryPage/History.page";
 import {ReportPage} from "./ReportPage/Report.page";
-import {DashboardPage} from "./DashboardPage/DashboardPage";
 import {selectCurrentUser} from "../Entities/Auth";
 import { ProtectedRoute } from "Features";
 import {useAppSelector} from "Shared";
+import {Navigate} from "react-router";
 
 export const Routing = () => {
     const user = useAppSelector(selectCurrentUser)
@@ -24,7 +24,9 @@ export const Routing = () => {
                 },
                 {
                     index: !!user,
-                    element: <DashboardPage/>
+                    element: (
+                        <Navigate to={"/history"}/>
+                    )
                 },
                 {
                     element: <ProtectedRoute isAllowed={!!user}/>,

@@ -1,7 +1,7 @@
 export {classNames} from './helpers/className'
 export {getFullName} from './helpers/getFullName'
 export {downloadExampleExcel} from './helpers/downloadExampleExcel'
-export {smsStatusCode} from './const/smsStatusCode'
+export {StatusCode} from './const/statusCode'
 export {notificationMethod} from './const/notificationMethods'
 export {militaryMilitaryRanks, shipMilitaryRanks, militaryRanks} from './const/ranks'
 export {navigation} from './const/navigation'

@@ -27,7 +27,7 @@ export const Header = () => {
                                 )}
                             </Disclosure.Button>
                         </div>
-                        <NavLink to="/" className={'flex flex-shrink-0'}>
+                        <NavLink to="/history" className={'flex flex-shrink-0'}>
                             {title}
                         </NavLink>
                         <div className={'hidden sm:ml-6 md:flex space-x-6 text-gray-900'}>
@@ -45,7 +45,7 @@ export const Header = () => {
                             })}
                         </div>
                         <div className={'flex flex-row justify-center items-center space-x-6'}>
-                            <Listbox
+                            {/*<Listbox
                                 as={'div'}
                                 value={selectedLanguage}
                                 onChange={setSelectedLanguage}
@@ -79,7 +79,7 @@ export const Header = () => {
                                         ))}
                                     </Listbox.Options>
                                 </Transition>
-                            </Listbox>
+                            </Listbox>*/}
                             {user &&
                                 <div className={'flex space-x-2 justify-center items-center flex-row'}>
                                     <button

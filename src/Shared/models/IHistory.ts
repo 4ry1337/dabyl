@@ -9,17 +9,16 @@ export interface IHistory {
     isActive: boolean,
     historyNumber: number
     userLogin: string,
-    userEmail: string
+    userEmail: string,
     notificationMethod: notificationMethod,
     notificationTime: string,
     statisctics:{
-        totalrecords: number,
         totalCalls: number,
         successfulCalls: number,
-        unSuccessfuICalls: number,
+        unSuccessfulCalls: number,
         totalSMS: number,
         successfulSMS: number
-        unSuccessfu11SMS: number,
+        unSuccessfullSMS: number,
     }
 }
 

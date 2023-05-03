@@ -59,7 +59,7 @@ export const Command = () => {
             setCommand(null)
             setTimeout(() => {
                 setIsAlertVisible(false);
-            }, 1000);
+            }, 5000);
         }
     }
     useEffect(()=>{
@@ -116,7 +116,7 @@ export const Command = () => {
                     >
                         <HiOutlineDownload className="h-6 w-6"/>
                         <h1 className="font-medium">
-                            Скачать Пример
+                            Скачать Шаблон Рассылки
                         </h1>
                     </button>
                 </div>

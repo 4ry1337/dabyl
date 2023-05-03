@@ -27,10 +27,10 @@ export const CommandsList = ({commands, command, setCommand}: CommandListProp) =
                                     <span className={'text-gray-500'}>Name:</span> {item.name === '' ? 'Empty Name' : item.name}
                                 </Disclosure.Button>
                                 <Disclosure.Panel className={'flex flex-col  px-4 py-2.5'}>
-                                    <div className={'grid grid-cols-4'}>
+                                    {/*<div className={'grid grid-cols-4'}>
                                         <div className={'text-gray-500'}>ID:</div>
                                         <div className={'col-span-3'}>{item.id}</div>
-                                    </div>
+                                    </div>*/}
                                     <div className={'grid grid-cols-4'}>
                                         <div className={'text-gray-500'}>Message:</div>
                                         <div className={'col-span-3'}>{item.message}</div>
