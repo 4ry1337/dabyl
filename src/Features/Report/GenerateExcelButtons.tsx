@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 import { ReportResponse } from 'Entities/History';
 import React, {useEffect, useState } from 'react';
 import { HiDownload } from 'react-icons/hi';
-import {getFullName, IPersonMinified, notificationMethod, StatusCode} from 'Shared';
+import {getFullName, IPersonMinified, notificationMethod} from 'Shared';
 import * as XLSX from 'xlsx';
 
 type GenerateExcel = {
@@ -35,12 +35,12 @@ const generateExcel = (data: ReportResponse) : IPersonMinified[] => {
             result.push({
                 "ФИО": getFullName(person.firstName, person.lastName, person.middleName),
                 "телефон": person.telephone,
-                "статус смс": StatusCode(person.smsStatus).message,
+                "статус смс": person.smsStatus,
                 "дата отправки смс": person.smsSendingTime,
-                "дата доставки смс": person.smsDeliveryTime.Valid ? person.smsDeliveryTime.Time : '--.--.-- / --:--',
-                "статус звонка": StatusCode(person.callStatus).message,
+                "дата доставки смс": person.smsStatusUpdatetime.Valid ? person.smsStatusUpdatetime.Time : '--.--.-- / --:--',
+                "статус звонка": person.callStatus,
                 "дата отправки звонка": person.callSendingTime,
-                "дата доставки звонка": person.callDeliveryTime.Valid ? person.callDeliveryTime.Time : '--.--.-- / --:--',
+                "дата доставки звонка": person.callStatusUpdatetime.Valid ? person.callStatusUpdatetime.Time : '--.--.-- / --:--',
             })
         })
     } else if (data.history.notificationMethod.toString() === notificationMethod.call.toString()){
@@ -48,9 +48,9 @@ const generateExcel = (data: ReportResponse) : IPersonMinified[] => {
             result.push({
                 "ФИО": getFullName(person.firstName, person.lastName, person.middleName),
                 "телефон": person.telephone,
-                "статус звонка": StatusCode(person.callStatus).message,
+                "статус звонка": person.callStatus,
                 "дата отправки звонка": person.callSendingTime,
-                "дата доставки звонка": person.callDeliveryTime.Valid ? person.callDeliveryTime.Time : '--.--.-- / --:--',
+                "дата доставки звонка": person.callStatusUpdatetime.Valid ? person.callStatusUpdatetime.Time : '--.--.-- / --:--',
             })
         })
     } else if (data.history.notificationMethod.toString() === notificationMethod.sms.toString()){
@@ -58,9 +58,9 @@ const generateExcel = (data: ReportResponse) : IPersonMinified[] => {
             result.push({
                 "ФИО": getFullName(person.firstName, person.lastName, person.middleName),
                 "телефон": person.telephone,
-                "статус смс": StatusCode(person.smsStatus).message,
+                "статус смс": person.smsStatus,
                 "дата отправки смс": person.smsSendingTime,
-                "дата доставки смс": person.smsDeliveryTime.Valid ? person.smsDeliveryTime.Time : '--.--.-- / --:--',
+                "дата доставки смс": person.smsStatusUpdatetime.Valid ? person.smsStatusUpdatetime.Time : '--.--.-- / --:--',
             })
         })
     }

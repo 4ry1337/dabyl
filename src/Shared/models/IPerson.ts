@@ -9,17 +9,17 @@ export interface IPerson {
         isactive: boolean,
         serverSmsStatusCode: number,
         smsId: number,
-        smsStatus: number,
+        smsStatus: string,
         smsSendingTime: string,
-        smsDeliveryTime: {
+        smsStatusUpdatetime: {
                 Time: string,
                 Valid: boolean
         }
         serverCallStatusCode: number,
         callId: number,
-        callStatus: number,
+        callStatus: string,
         callSendingTime: string,
-        callDeliveryTime: {
+        callStatusUpdatetime: {
                 Time: string,
                 Valid: boolean
         }

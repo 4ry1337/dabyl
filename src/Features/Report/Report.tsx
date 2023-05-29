@@ -1,8 +1,8 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import {format, parseJSON} from "date-fns";
 import {RadioGroup} from "@headlessui/react";
 import {ReportResponse} from "../../Entities/History";
-import {classNames, getFullName, Heading, notificationMethod, StatusCode} from "../../Shared";
+import {classNames, getFullName, Heading, notificationMethod} from "../../Shared";
 import {HiCheck} from "react-icons/hi";
 
 type ReportProp = {
@@ -29,9 +29,9 @@ export const Report = (props: ReportProp) => {
     filteredPersons = filteredPersons.filter(
         person => {
             if(smsStatus === 1){
-                return person.smsStatus === 1
+                return person.smsStatus === "delivered"
             } else if(smsStatus === 2) {
-                return person.smsStatus !== 1
+                return person.smsStatus !== "rejected"
             } else {
                 return person
             }
@@ -40,9 +40,9 @@ export const Report = (props: ReportProp) => {
     filteredPersons = filteredPersons.filter(
         person => {
             if(callStatus === 1){
-                return person.callStatus === 1
+                return person.callStatus === "delivered"
             } else if(smsStatus === 2) {
-                return person.callStatus !== 1
+                return person.callStatus !== "rejected"
             } else {
                 return person
             }
@@ -235,8 +235,8 @@ export const Report = (props: ReportProp) => {
                                                 &&
                                                 <>
                                                     <div>
-                                                        <h1 className={`${StatusCode(person.callStatus).color}`}>
-                                                            {StatusCode(person.callStatus).message}
+                                                        <h1>
+                                                            {person.callStatus}
                                                         </h1>
                                                     </div>
                                                     <div>
@@ -246,7 +246,7 @@ export const Report = (props: ReportProp) => {
                                                     </div>
                                                     <div>
                                                         <h1>
-                                                            {person.callDeliveryTime.Valid ? format(parseJSON(person.callDeliveryTime.Time), 'dd.MM.yyyy / kk:m') : '--.--.-- / --:--'}
+                                                            {person.callStatusUpdatetime.Valid ? format(parseJSON(person.callStatusUpdatetime.Time), 'dd.MM.yyyy / kk:m') : '--.--.-- / --:--'}
                                                         </h1>
                                                     </div>
                                                 </>
@@ -256,8 +256,8 @@ export const Report = (props: ReportProp) => {
                                                 &&
                                                 <>
                                                     <div>
-                                                        <h1 className={`${StatusCode(person.callStatus).color}`}>
-                                                            {StatusCode(person.smsStatus).message}
+                                                        <h1>
+                                                            {person.smsStatus}
                                                         </h1>
                                                     </div>
                                                     <div>
@@ -266,7 +266,7 @@ export const Report = (props: ReportProp) => {
                                                         </h1>
                                                     </div>
                                                     <div>
-                                                        <h1>{person.smsDeliveryTime.Valid ? format(parseJSON(person.smsDeliveryTime.Time), 'dd.MM.yyyy / kk:mm') : '--.--.-- / --:--'}</h1>
+                                                        <h1>{person.smsStatusUpdatetime.Valid ? format(parseJSON(person.smsStatusUpdatetime.Time), 'dd.MM.yyyy / kk:mm') : '--.--.-- / --:--'}</h1>
                                                     </div>
                                                 </>
                                             }
